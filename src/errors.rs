@@ -2,8 +2,7 @@ use actix_web::{error::ResponseError, HttpResponse};
 use derive_more::Display;
 use std::convert::From;
 use uuid::Error as ParseError;
-use bson::document::ValueAccessError as BsonValueError;
-use mongodb::error::Error as MongoError;
+use sqlx::Error as SqlError;
 
 #[derive(Debug, Display)]
 pub enum ServiceError {
@@ -38,26 +37,14 @@ impl ResponseError for ServiceError {
     }
 }
 
-impl From<ParseError> for ServiceError {
-    fn from(_: ParseError) -> ServiceError {
-        ServiceError::BadRequest("Invalid UUID".into())
-    }
-}
-
-impl From<BsonValueError> for ServiceError {
-    fn from(_: BsonValueError) -> ServiceError {
-        ServiceError::InternalServerError
-    }
-}
-
-impl From<MongoError> for ServiceError {
-    fn from(_: MongoError) -> ServiceError {
-        ServiceError::InternalServerError
-    }
-}
-
 impl From<Box<dyn std::error::Error>> for ServiceError {
     fn from(_: Box<dyn std::error::Error>) -> ServiceError {
         ServiceError::InternalServerError
     }
+}
+
+impl From<SqlError> for ServiceError {
+  fn from(_: SqlError) -> ServiceError {
+    ServiceError::InternalServerError
+  }
 }
