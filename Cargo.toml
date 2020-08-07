@@ -1,15 +1,20 @@
 [package]
-name = "fll-scoring"
-version = "0.1.0"
 authors = ["Owen Salter <owen@devosmium.xyz>"]
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+name = "fll-scoring"
+version = "0.1.0"
 
 [dependencies]
-sqlx = {version = "0.3", features = ["postgres", "uuid", "chrono"]}
-handlebars = "3.1.0"
-configparser = "0.7.1"
+actix-http = "2.0.0-beta.2"
 actix-web = "2.0"
+configparser = "0.7.1"
 derive_more = "0.99"
-uuid = { version = "0.8", features = ["serde", "v4"] }
+handlebars = "3.1.0"
+
+[dependencies.sqlx]
+features = ["postgres", "uuid", "chrono"]
+version = "0.3"
+
+[dependencies.uuid]
+features = ["serde", "v4"]
+version = "0.8" 

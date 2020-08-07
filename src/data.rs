@@ -10,7 +10,7 @@ pub async fn get_db_pool() -> Result<PgPool, super::errors::ServiceError> {
 
   match pool {
     Ok(pool) => Ok(pool),
-    Err(_) => Err(ServiceError::InternalServerError)
+    Err(_) => Err(ServiceError::InternalServerError("Unable to connect to the Postgres database".to_string()))
   }
 }
 
