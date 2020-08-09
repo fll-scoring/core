@@ -2,7 +2,7 @@ use configparser::ini::Ini;
 use std::collections::HashMap;
 use std::error::Error;
 
-fn load_config(
+pub fn load_config(
 ) -> Result<HashMap<String, HashMap<String, Option<String>>>, Box<dyn std::error::Error>> {
     let mut config = Ini::new();
     let map = config.load("/etc/fll-scoring/config.ini")?;
